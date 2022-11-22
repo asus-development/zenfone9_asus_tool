@@ -153,15 +153,8 @@ function depmod_kos(){
 		basename ${module} >> ${ANDROID_BUILD_TOP}/out/target/product/taro/obj/PACKAGING/depmod_VENDOR_intermediates/lib/modules/0.0/modules.load
 
 	done
-	${ANDROID_BUILD_TOP}/asus_tool/out/host/linux-x86/bin/depmod -b ${ANDROID_BUILD_TOP}/out/target/product/taro/obj/PACKAGING/depmod_VENDOR_intermediates 0.0
 
 	mkdir -p ${ANDROID_BUILD_TOP}/out/target/product/taro/vendor_dlkm/lib/modules/
-	cp -r ${ANDROID_BUILD_TOP}/out/target/product/taro/obj/PACKAGING/depmod_VENDOR_intermediates/lib/modules/0.0/modules.dep   ${ANDROID_BUILD_TOP}/out/target/product/taro/vendor_dlkm/lib/modules/
-	cp -r ${ANDROID_BUILD_TOP}/out/target/product/taro/obj/PACKAGING/depmod_VENDOR_intermediates/lib/modules/0.0/modules.softdep   ${ANDROID_BUILD_TOP}/out/target/product/taro/vendor_dlkm/lib/modules/
-	cp -r ${ANDROID_BUILD_TOP}/out/target/product/taro/obj/PACKAGING/depmod_VENDOR_intermediates/lib/modules/0.0/modules.alias   ${ANDROID_BUILD_TOP}/out/target/product/taro/vendor_dlkm/lib/modules/
-
-	cp -r ${ANDROID_BUILD_TOP}/asus_tool/modules.load   ${ANDROID_BUILD_TOP}/out/target/product/taro/vendor_dlkm/lib/modules/
-	cp -r ${ANDROID_BUILD_TOP}/asus_tool/modules.dep   ${ANDROID_BUILD_TOP}/out/target/product/taro/vendor_dlkm/lib/modules/
 
 	#for modules.blocklist
 	rm -f ${ANDROID_BUILD_TOP}/out/target/product/taro/vendor_dlkm/lib/modules/modules.blocklist
@@ -171,94 +164,4 @@ function depmod_kos(){
 }
 depmod_kos
 
-function build_prop(){
-#asus/WW_AI2202/ASUS_AI2202:12/SKQ1.220323.001/cassie05181115:user/test-keys
-PRODUCT_BRAND=asus
-ASUS_PRODUCT_NAME=WW_AI2202
-ASUS_PRODUCT_DEVICE=ASUS_AI2202
-PLATFORM_VERSION=12
-BUILD_ID=SKQ1.220323.001
-#BF_BUILD_NUMBER=cassie05181115
-BUILD_SEC=`date +%s`
-DATE_1=`date -d @${BUILD_SEC} +%m%d%H%M`
-BF_BUILD_NUMBER=${USER}${DATE_1}
-TARGET_BUILD_VARIANT=user
-BUILD_VERSION_TAGS=test-keys
-BUILD_FINGERPRINT=${PRODUCT_BRAND}/${ASUS_PRODUCT_NAME}/${ASUS_PRODUCT_DEVICE}:${PLATFORM_VERSION}/${BUILD_ID}/${BF_BUILD_NUMBER}:${TARGET_BUILD_VARIANT}/${BUILD_VERSION_TAGS}
-DATE=`LANG=en date -d @${BUILD_SEC}`   #Wed May 18 13:25:48 CST 2022
-
-rm -rf ${ANDROID_BUILD_TOP}/out/target/product/taro/vendor_dlkm/etc
-mkdir -p ${ANDROID_BUILD_TOP}/out/target/product/taro/vendor_dlkm/etc
-cp -r ${ANDROID_BUILD_TOP}/asus_tool/etc/. ${ANDROID_BUILD_TOP}/out/target/product/taro/vendor_dlkm/etc
-# ToDo QQ
-#sed -i "s/cassie05181325/${BF_BUILD_NUMBER}/g" ${ANDROID_BUILD_TOP}/out/target/product/taro/vendor_dlkm/etc/build.prop
-#sed -i "s/Wed May 18 13:25:48 CST 2022/${DATE}/g" ${ANDROID_BUILD_TOP}/out/target/product/taro/vendor_dlkm/etc/build.prop
-#sed -i "s/1652851548/${BUILD_SEC}/g" ${ANDROID_BUILD_TOP}/out/target/product/taro/vendor_dlkm/etc/build.prop
-}
-
-build_prop
-
-function build_vendor_dlkmimage(){
-	mkdir -p ${ANDROID_BUILD_TOP}/out/host/linux-x86/
-	mkdir -p ${ANDROID_BUILD_TOP}/system/extras/ext4_utils/
-	mkdir -p ${ANDROID_BUILD_TOP}/prebuilts/build-tools
-	mkdir -p ${ANDROID_BUILD_TOP}/out/target/product/taro/obj/PACKAGING/vendor_dlkm_intermediates/
-        mkdir -p ${ANDROID_BUILD_TOP}/out/target/product/taro/obj/ETC/
-	mkdir -p ${ANDROID_BUILD_TOP}/out/target/product/taro/system
-	cp -r ${ANDROID_BUILD_TOP}/asus_tool/out/host/linux-x86/.  ${ANDROID_BUILD_TOP}/out/host/linux-x86/
-	cp -r ${ANDROID_BUILD_TOP}/asus_tool/system/extras/ext4_utils/.  ${ANDROID_BUILD_TOP}/system/extras/ext4_utils/
-        cp -r ${ANDROID_BUILD_TOP}/asus_tool/prebuilts/build-tools/.  ${ANDROID_BUILD_TOP}/prebuilts/build-tools/
-	cp -r ${ANDROID_BUILD_TOP}/asus_tool/out/host/linux-x86/.  ${ANDROID_BUILD_TOP}/out/host/linux-x86/
-	cp -r ${ANDROID_BUILD_TOP}/asus_tool/vendor_dlkm_image_info.txt ${ANDROID_BUILD_TOP}/out/target/product/taro/obj/PACKAGING/vendor_dlkm_intermediates/vendor_dlkm_image_info.txt
-	cp -r ${ANDROID_BUILD_TOP}/asus_tool/out/target/product/taro/obj/ETC/. ${ANDROID_BUILD_TOP}/out/target/product/taro/obj/ETC/
-	PATH=${ANDROID_BUILD_TOP}/out/host/linux-x86/bin/:${ANDROID_BUILD_TOP}/system/extras/ext4_utils/:${ANDROID_BUILD_TOP}/prebuilts/build-tools/path/linux-x86:${ANDROID_BUILD_TOP}/out/.path ${ANDROID_BUILD_TOP}/out/host/linux-x86/bin/build_image ${ANDROID_BUILD_TOP}/out/target/product/taro/vendor_dlkm ${ANDROID_BUILD_TOP}/out/target/product/taro/obj/PACKAGING/vendor_dlkm_intermediates/vendor_dlkm_image_info.txt ${ANDROID_BUILD_TOP}/out/target/product/taro/vendor_dlkm.img ${ANDROID_BUILD_TOP}/out/target/product/taro/system
-}
-build_vendor_dlkmimage
-
-echo "[asus] build vendor_dlkm.img success"
-
-
-echo "[asus] build vendor_dlkm copy begin"
-DLKM_SRC=${ANDROID_BUILD_TOP}/out/target/product/taro/
-
-cp -f ${DLKM_SRC}/vendor_dlkm.img ${ANDROID_BUILD_TOP}/make_vendor_dlkm/vendor_dlkm.img
-echo "[asus] build vendor_dlkm copy success"
-
-
-echo "[asus] build dtb copy begin"
-DTB_SRC=${ANDROID_BUILD_TOP}/device/qcom/taro-kernel/dtbs/
-
-cp -f ${DTB_SRC}/dtb.img ${ANDROID_BUILD_TOP}/make_vendor_boot/dtb
-echo "[asus] build dtb copy success"
-
-
-echo "[asus] build dtbo copy begin"
-DTBO_SRC=${ANDROID_BUILD_TOP}/device/qcom/taro-kernel/dtbs/
-
-cp -f ${DTBO_SRC}/dtbo.img ${ANDROID_BUILD_TOP}/make_dtbo/dtbo.img
-echo "[asus] build dtbo copy success"
-
-
-echo "[asus] build vendor_boot.img begin"
-cd make_vendor_boot/
-
-./make_vendor_boot.sh
-
-echo "[asus] build vendor_boot.img end"
-
-cd ${ANDROID_BUILD_TOP}
-
-echo "[asus] build boot.img begin"
-
-cd make_boot/
-
-./make_boot.sh
-
-echo "[asus] build boot.img end"
-
-
-
-
-
-
-
+echo "[asus] custom build script success"
