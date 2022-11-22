@@ -118,7 +118,7 @@ mkdir -p ${ANDROID_BUILD_TOP}/out/target/product/taro/obj/PACKAGING/depmod_VENDO
 
 rm -rf ${ANDROID_BUILD_TOP}/out/target/product/taro/obj/PACKAGING/depmod_vendor_stripped_intermediates/
 mkdir -p ${ANDROID_BUILD_TOP}/out/target/product/taro/obj/PACKAGING/depmod_vendor_stripped_intermediates/
-LLVM_STRIP=${ANDROID_BUILD_TOP}/asus_tool/prebuilts/clang/host/linux-x86/clang-r416183b1/bin/llvm-strip
+LLVM_STRIP=${ANDROID_BUILD_TOP}/kernel_platform/prebuilts-master/clang/host/linux-x86/clang-r416183c/bin/llvm-strip
 
 
 function strip_kos(){
