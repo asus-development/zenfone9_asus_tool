@@ -178,6 +178,7 @@ function depmod_kos(){
 depmod_kos
 
 #########################################################################################################################################################
+TARO_KERNEL_DEST=device/qcom/taro-kernel
 VENDOR_BOOT_DEST=device/qcom/taro-kernel/vendor_boot
 rm -rf ${VENDOR_BOOT_DEST}
 mkdir -p ${VENDOR_BOOT_DEST}
@@ -188,6 +189,7 @@ vendor_boot_kos=`find ${ANDROID_BUILD_TOP}/kernel_platform/out/msm-waipio-waipio
 
 cp ${MODULES_OPENSOURCE_SRC}/msm-mmrm.ko ${VENDOR_BOOT_DEST}
 cp ${MODULES_OPENSOURCE_SRC1}/msm_drm.ko ${VENDOR_BOOT_DEST}
+cp ${TARO_KERNEL_DEST}/modules.load ${VENDOR_BOOT_DEST}/vendor_boot.modules.load
 
 MODULES_STAGING_DIR=./
 
