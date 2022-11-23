@@ -3,10 +3,11 @@
 
 if [ "$1" == "all" ]; then
 	rm -rf kernel_platform/out/
-	rm -rf device/qcom/waipio-kernel/
+	rm -rf device/qcom/taro-kernel/
 	rm -rf out/
 	git checkout *.bp  *.mk
 	rm -rf system/
+	rm -r exports.txt
 fi
 
 
