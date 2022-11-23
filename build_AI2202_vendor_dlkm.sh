@@ -38,7 +38,8 @@ export ASUS_AI2202_DISPLAY=y
 export ASUS_FTM=y
 export ASUS_FTM_AUDIO=y
 export ASUS_FTM_BUILD=y
-export BUILD_VENDOR_DLKM=1
+export BUILD_VENDOR_DLKM=y
+export ASUS_GKI_BUILD=y
 
 export ANDROID_PRODUCT_OUT=${ANDROID_BUILD_TOP}/out/target/product/taro
 
