@@ -110,7 +110,7 @@ cd ${ANDROID_BUILD_TOP}
 
 kernel_kos=`find ${ANDROID_BUILD_TOP}/device/qcom/taro-kernel/vendor_dlkm/ -name "*.ko"`
 vendor_kos=`find ${ANDROID_BUILD_TOP}/kernel_platform/out/vendor/qcom/ -name "*.ko"`
-#prebuild_kos=`find ${ANDROID_BUILD_TOP}/prebuilts/tuxera/module/ -name "*.ko"`
+prebuild_kos=`find ${ANDROID_BUILD_TOP}/prebuilts/tuxera/module/ -name "*.ko"`
 
 
 rm -rf ${ANDROID_BUILD_TOP}/out/target/product/taro/obj/PACKAGING/depmod_VENDOR_intermediates
@@ -131,6 +131,14 @@ function strip_kos(){
 	done
 
 	for module in ${vendor_kos}
+	do
+		ko_name=$(basename $module)
+		${LLVM_STRIP} -o  ${ANDROID_BUILD_TOP}/out/target/product/taro/obj/PACKAGING/depmod_vendor_stripped_intermediates/${ko_name} --strip-debug ${module}
+		echo "${LLVM_STRIP} -o  ${ANDROID_BUILD_TOP}/out/target/product/taro/obj/PACKAGING/depmod_vendor_stripped_intermediates/${ko_name} --strip-debug ${module}"
+	cp ${module} ${ANDROID_BUILD_TOP}/out/target/product/taro/obj/PACKAGING/depmod_VENDOR_intermediates/lib/modules/0.0/vendor/lib/modules/
+	done
+
+	for module in ${prebuild_kos}
 	do
 		ko_name=$(basename $module)
 		${LLVM_STRIP} -o  ${ANDROID_BUILD_TOP}/out/target/product/taro/obj/PACKAGING/depmod_vendor_stripped_intermediates/${ko_name} --strip-debug ${module}
