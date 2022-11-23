@@ -174,4 +174,26 @@ function depmod_kos(){
 }
 depmod_kos
 
+#########################################################################################################################################################
+VENDOR_BOOT_DEST=device/qcom/taro-kernel/vendor_boot
+rm -rf ${VENDOR_BOOT_DEST}
+mkdir -p ${VENDOR_BOOT_DEST}
+
+MODULES_OPENSOURCE_SRC=${ANDROID_BUILD_TOP}/out/target/product/taro/obj/DLKM/msm-mmrm.ko_intermediates
+MODULES_OPENSOURCE_SRC1=${ANDROID_BUILD_TOP}/out/target/product/taro/obj/PACKAGING/depmod_VENDOR_intermediates/lib/modules/0.0/vendor/lib/modules
+vendor_boot_kos=`find ${ANDROID_BUILD_TOP}/kernel_platform/out/msm-waipio-waipio-gki/dist/ -name "*.ko"`
+
+cp ${MODULES_OPENSOURCE_SRC}/msm-mmrm.ko ${VENDOR_BOOT_DEST}
+cp ${MODULES_OPENSOURCE_SRC1}/msm_drm.ko ${VENDOR_BOOT_DEST}
+
+MODULES_STAGING_DIR=./
+
+for FILE in ${vendor_boot_kos}; do
+      ko_name=$(basename $FILE)
+      ${LLVM_STRIP} -o ${VENDOR_BOOT_DEST}/${ko_name} --strip-debug ${FILE}
+done
+
+echo "[asus] vendor_boot ko success"
+#########################################################################################################################################################
+
 echo "[asus] custom build script success"
