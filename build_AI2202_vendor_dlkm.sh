@@ -149,8 +149,11 @@ function strip_kos(){
 	done
 
 	rm -rf ${ANDROID_BUILD_TOP}/out/target/product/taro/vendor_dlkm/lib/modules/
+	rm -rf ${ANDROID_BUILD_TOP}/device/qcom/taro-kernel/vendor_dlkm_final/
 	mkdir -p ${ANDROID_BUILD_TOP}/out/target/product/taro/vendor_dlkm/lib/modules/
+	mkdir -p ${ANDROID_BUILD_TOP}/device/qcom/taro-kernel/vendor_dlkm_final/
 	cp -r ${ANDROID_BUILD_TOP}/out/target/product/taro/obj/PACKAGING/depmod_vendor_stripped_intermediates/*.ko ${ANDROID_BUILD_TOP}/out/target/product/taro/vendor_dlkm/lib/modules/
+	cp -r ${ANDROID_BUILD_TOP}/out/target/product/taro/vendor_dlkm/lib/modules/*.ko ${ANDROID_BUILD_TOP}/device/qcom/taro-kernel/vendor_dlkm_final/
 }
 
 strip_kos
