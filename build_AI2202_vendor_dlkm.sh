@@ -164,7 +164,7 @@ function depmod_kos(){
 	for module in ${all_kos}
 	do
 		basename ${module} >> ${ANDROID_BUILD_TOP}/out/target/product/taro/obj/PACKAGING/depmod_VENDOR_intermediates/lib/modules/0.0/modules.load
-
+		cp ${ANDROID_BUILD_TOP}/out/target/product/taro/obj/PACKAGING/depmod_VENDOR_intermediates/lib/modules/0.0/modules.load ${ANDROID_BUILD_TOP}/device/qcom/taro-kernel/vendor_dlkm_final/vendor_dlkm.modules.load
 	done
 
 	mkdir -p ${ANDROID_BUILD_TOP}/out/target/product/taro/vendor_dlkm/lib/modules/
