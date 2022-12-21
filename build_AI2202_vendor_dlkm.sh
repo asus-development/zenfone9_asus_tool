@@ -100,9 +100,9 @@ EXT_MODULES=..//vendor/qcom/opensource/camera-kernel ./build/build_module.sh  CA
 #17
 EXT_MODULES=..//vendor/qcom/opensource/display-drivers/msm  ./build/build_module.sh  DISPLAY_ROOT=./vendor/qcom/opensource/display-drivers MODNAME=msm_drm BOARD_PLATFORM=taro CONFIG_DRM_MSM=m KBUILD_EXTRA_SYMBOLS=${ANDROID_BUILD_TOP}/out/target/product/taro/obj/DLKM/mmrm-module-symvers_intermediates/Module.symvers ASUS_AI2202_DISPLAY=y   ANDROID_BUILD_TOP=${ANDROID_BUILD_TOP}
 #18
-EXT_MODULES=..//vendor/qcom/opensource/wlan/qcacld-3.0/.qca6490  ./build/build_module.sh  WLAN_ROOT=vendor/qcom/opensource/wlan/qcacld-3.0/.qca6490 WLAN_COMMON_ROOT=cmn WLAN_COMMON_INC=vendor/qcom/opensource/wlan/qcacld-3.0/cmn WLAN_FW_API=vendor/qcom/opensource/wlan/fw-api WLAN_PROFILE=qca6490 DYNAMIC_SINGLE_CHIP= MODNAME=qca6490 DEVNAME=qca6490 BOARD_PLATFORM=taro CONFIG_QCA_CLD_WLAN=m WLAN_CTRL_NAME=wlan CONFIG_CNSS_QCA6490=y    ANDROID_BUILD_TOP=${ANDROID_BUILD_TOP}
+EXT_MODULES=..//vendor/qcom/opensource/wlan/qcacld-3.0  ./build/build_module.sh  WLAN_ROOT=vendor/qcom/opensource/wlan/qcacld-3.0 WLAN_COMMON_ROOT=cmn WLAN_COMMON_INC=vendor/qcom/opensource/wlan/qcacld-3.0/cmn WLAN_FW_API=vendor/qcom/opensource/wlan/fw-api WLAN_PROFILE=qca6490 DYNAMIC_SINGLE_CHIP= MODNAME=qca6490 DEVNAME=qca6490 BOARD_PLATFORM=taro CONFIG_QCA_CLD_WLAN=m WLAN_CTRL_NAME=wlan CONFIG_CNSS_QCA6490=y    ANDROID_BUILD_TOP=${ANDROID_BUILD_TOP}
 
-mv ${ANDROID_BUILD_TOP}/kernel_platform/out/vendor/qcom/opensource/wlan/qcacld-3.0/.qca6490/qca6490.ko ${ANDROID_BUILD_TOP}/kernel_platform/out/vendor/qcom/opensource/wlan/qcacld-3.0/.qca6490/qca_cld3_qca6490.ko
+mv ${ANDROID_BUILD_TOP}/kernel_platform/out/vendor/qcom/opensource/wlan/qcacld-3.0/qca6490.ko ${ANDROID_BUILD_TOP}/kernel_platform/out/vendor/qcom/opensource/wlan/qcacld-3.0/qca_cld3_qca6490.ko
 }
 build_vendor_ko
 echo "[asus] build kos success"
